@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const Thought = require('./Thought');
+//DO I NEED THIS? AM I DOING THIS RIGHT?  CHECK ONCE SEEDED.
 
 const userSchema = new mongoose.Schema({
   username: {
