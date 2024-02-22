@@ -1,40 +1,33 @@
-const { Schema, model } = require('mongoose');
-//Require in other schemas here if needed!!!!!
+const mongoose = require('mongoose');
 
-// EXAMPLE FROM CLASS!!!!
-// const courseSchema = new Schema(
-//   {
-//     courseName: {
-//       type: String,
-//       required: true,
-//     },
-//     inPerson: {
-//       type: Boolean,
-//       default: true,
-//     },
-//     startDate: {
-//       type: Date,
-//       default: Date.now(),
-//     },
-//     endDate: {
-//       type: Date,
-//       default: () => new Date(+new Date() + 84 * 24 * 60 * 60 * 1000),
-//     },
-//     students: [
-//       {
-//         type: Schema.Types.ObjectId,
-//         ref: 'Student',
-//       },
-//     ],
-//   },
-//   {
-//     toJSON: {
-//       virtuals: true,
-//     },
-//     id: false,
-//   }
-// );
 
-// const Course = model('course', courseSchema);
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+  },
+  thoughts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Thought',
+    },
+  ],
+  friends: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+});
 
-// module.exports = Course;
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
