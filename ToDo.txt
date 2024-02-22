@@ -1,5 +1,5 @@
-Models
+Models - Built.  Look good.  Needs testing.
 
-Controllers/Routes
+Controllers/Routes - Built.  Look good.  Needs testing.  Added comments on controllers.  Did some route testing and fixed some bugs.
 
-Seeding
+Seeding - Need to do.  NBA theme???
