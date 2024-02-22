@@ -1,5 +1,0 @@
-Models
-
-Controllers/Routes
-
-Seeding
