@@ -112,3 +112,6 @@ const userController = {
     }
   },
 };
+
+module.exports = userController;
+///do I need to export out the individual functions???? 
