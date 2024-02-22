@@ -1,76 +1,117 @@
-// ObjectId() method for converting studentId string into an ObjectId for querying database
-//DO I NEED THIS???
-const { ObjectId } = require('mongoose').Types;
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
+const userController = {
+  //GET ALL USERS
+    getAllUsers: async (req, res) => {
+    try {
+      const users = await User.find();
+      res.json(users);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 
-//EXAMPLE CONTROLLER
-// module.exports = {
-//   // Get all courses
-//   async getStudents(req, res) {
-//     try {
-//       const courses = await Course.find();
-//       res.json(courses);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   },
-//   // Get a course
-//   async getSingleCourse(req, res) {
-//     try {
-//       const course = await Course.findOne({ _id: req.params.courseId })
-//         .select('-__v');
+//GET A SINGLE USER
+  getUserById: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await User.findById(userId)
+        .populate('thoughts')
+        .populate('friends');
 
-//       if (!course) {
-//         return res.status(404).json({ message: 'No course with that ID' });
-//       }
+        //do these need to be pluralized?  Check once seeded to see if working
+      
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
 
-//       res.json(course);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   },
-//   // Create a course
-//   async createCourse(req, res) {
-//     try {
-//       const course = await Course.create(req.body);
-//       res.json(course);
-//     } catch (err) {
-//       console.log(err);
-//       return res.status(500).json(err);
-//     }
-//   },
-//   // Delete a course
-//   async deleteCourse(req, res) {
-//     try {
-//       const course = await Course.findOneAndDelete({ _id: req.params.courseId });
+      res.json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 
-//       if (!course) {
-//         return res.status(404).json({ message: 'No course with that ID' });
-//       }
+  // POST a new user
+  createUser: async (req, res) => {
+    try {
+      const newUser = await User.create(req.body);
+      res.status(201).json(newUser);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
 
-//       await Student.deleteMany({ _id: { $in: course.students } });
-//       res.json({ message: 'Course and students deleted!' });
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   },
-//   // Update a course
-//   async updateCourse(req, res) {
-//     try {
-//       const course = await Course.findOneAndUpdate(
-//         { _id: req.params.courseId },
-//         { $set: req.body },
-//         { runValidators: true, new: true }
-//       );
+  // PUT to update a user by its _id
+  updateUser: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      //Make sure to include the new:true on these to return the updaded version
+      const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true });
 
-//       if (!course) {
-//         return res.status(404).json({ message: 'No course with this id!' });
-//       }
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
 
-//       res.json(course);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   },
-// };
+      res.json(updatedUser);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
+
+  // DELETE to remove user by its _id
+  deleteUser: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const deletedUser = await User.findByIdAndDelete(userId);
+
+      if (!deletedUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      res.json(deletedUser);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  // POST to add a new friend to a user's friend list
+  addFriend: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const friendId = req.params.friendId;
+
+      //push to add
+      const user = await User.findByIdAndUpdate(userId, { $push: { friends: friendId } }, { new: true });
+
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      res.json(user);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
+
+  // DELETE to remove a friend from a user's friend list
+  removeFriend: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const friendId = req.params.friendId;
+
+    //pull to remove
+      const user = await User.findByIdAndUpdate(userId, { $pull: { friends: friendId } }, { new: true });
+
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      res.json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+};
+
+module.exports = userController;
+///do I need to export out the individual functions???? 

@@ -1,25 +1,26 @@
 const router = require('express').Router();
 
-// EXAMPLE FROM CLASS
+const {
+    getAllUsers,
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser,
+    addFriend,
+    removeFriend,
+  } = require('../../controllers/userController');
 
-// Require in functions from controler
-// const {
-//   getCourses,
-//   getSingleCourse,
-//   createCourse,
-//   updateCourse,
-//   deleteCourse,
-// } = require('../../controllers/courseController.js');
+  router.route('/users')
+  .get(getAllUsers)
+  .post(createUser);
 
-// Allocate to routes
-// // /api/courses
-// router.route('/').get(getCourses).post(createCourse);
+router.route('/users/:userId')
+  .get(getUserById)
+  .put(updateUser)
+  .delete(deleteUser);
 
-// // /api/courses/:courseId
-// router
-//   .route('/:courseId')
-//   .get(getSingleCourse)
-//   .put(updateCourse)
-//   .delete(deleteCourse);
+router.route('/users/:userId/friends/:friendId')
+  .post(addFriend)
+  .delete(removeFriend);
 
-// module.exports = router;
+  module.exports = router;

@@ -1,28 +1,27 @@
 const router = require('express').Router();
 
-// EXAMPLE FROM CLASS!!!!
+const {
+    getAllThoughts,
+    getThoughtById,
+    createThought,
+    updateThought,
+    deleteThought,
+    createReaction,
+    deleteReaction,
+  } = require('../../controllers/thoughtController');
 
-// Require in everything from the controller
-// const {
-//   getStudents,
-//   getSingleStudent,
-//   createStudent,
-//   deleteStudent,
-//   addAssignment,
-//   removeAssignment,
-// } = require('../../controllers/studentController');
+// Thought Routes
+router.route('/thoughts')
+  .get(getAllThoughts)
+  .post(createThought);
 
-// DEFINE WHERE EACH ONE GOES
-// // /api/students
-// router.route('/').get(getStudents).post(createStudent);
+router.route('/thoughts/:thoughtId')
+  .get(getThoughtById)
+  .put(updateThought)
+  .delete(deleteThought);
 
-// // /api/students/:studentId
-// router.route('/:studentId').get(getSingleStudent).delete(deleteStudent);
+router.route('/thoughts/:thoughtId/reactions')
+  .post(createReaction)
+  .delete(deleteReaction);
 
-// // /api/students/:studentId/assignments
-// router.route('/:studentId/assignments').post(addAssignment);
-
-// // /api/students/:studentId/assignments/:assignmentId
-// router.route('/:studentId/assignments/:assignmentId').delete(removeAssignment);
-
-// module.exports = router;
+module.exports = router;
