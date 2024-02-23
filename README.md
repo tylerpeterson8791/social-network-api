@@ -27,8 +27,18 @@
   ## Usage
   
   Since there is no front end on this there really isn't any User process yet.  Below are a couple of screenshots of the return data based on routing:
+
+  GETTING ALL USERS:
+  ![Getting all Users](https://github.com/tylerpeterson8791/social-network-api/assets/75902133/a19b3529-d360-491f-85c7-e8b7587af763)
+
+  ADDING A FRIEND
+  ![Making Friends](https://github.com/tylerpeterson8791/social-network-api/assets/75902133/ae650faf-57d0-423c-b9b9-26ce87b0ffb8)
+
+
+  POSTING REACTION ON A THOUGHT:
+  ![Posting Reaction on Thought](https://github.com/tylerpeterson8791/social-network-api/assets/75902133/dac0c4a3-7246-4cc0-8c6b-382d3d53d642)
+
   
-![Posting Reaction on Thought](https://github.com/tylerpeterson8791/social-network-api/assets/75902133/dac0c4a3-7246-4cc0-8c6b-382d3d53d642)
 
 
 
