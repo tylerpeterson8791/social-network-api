@@ -28,7 +28,7 @@ const thoughtController = {
       try {
         const thought = await Thought.create(req.body);
        await User.findByIdAndUpdate(req.body.username, { $push: { thoughts: thought._id } });
-  // DONT KNOW IF THIS IS CORRECT????  Spread array???
+  // DONT KNOW IF THIS IS CORRECT????  Spread array??? I get an error but the DB updates
         res.json(thought);
       } catch (err) {
         res.status(400).json({ error: 'Invalid request' });

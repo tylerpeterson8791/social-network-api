@@ -1,58 +1,56 @@
-// EXAMPLE FROM CLASS!!!!
+const mongoose = require('mongoose');
+const { User, Thought } = require('../models');
 
-// I need to think about how I want to do seeding, keeping this here for reference
+mongoose.connect('mongodb://127.0.0.1:27017/socialnetwork-db', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-// const connection = require('../config/connection');
-// const { Course, Student } = require('../models');
-// const { getRandomName, getRandomAssignments } = require('./data');
+const seedUsersAndThoughts = async () => {
+  try {
+    // Clear existing data
+    await User.deleteMany({});
+    await Thought.deleteMany({});
 
-// connection.on('error', (err) => err);
+    // Seed Users
+    const usersData = [
+      { username: 'LeBron_James', email: 'lebron@nba.com' },
+      { username: 'Stephen_Curry', email: 'curry@nba.com' },
+      { username: 'Kevin_Durant', email: 'durant@nba.com' },
+      { username: 'Giannis_Antetokounmpo', email: 'giannis@nba.com' },
+      { username: 'Kawhi_Leonard', email: 'kawhi@nba.com' },
+      { username: 'Luka_Doncic', email: 'luka@nba.com' },
+      { username: 'Karl_Anthony_Towns', email: 'kat@nba.com' },
+      { username: 'Anthony_Edwards', email: 'ant@nba.com' },
+      { username: 'Joel_Embiid', email: 'embiid@nba.com' },
+      { username: 'Damian_Lillard', email: 'dame@nba.com' },
+    ];
 
-// connection.once('open', async () => {
-//   console.log('connected');
-//     // Delete the collections if they exist
-//     let courseCheck = await connection.db.listCollections({ name: 'courses' }).toArray();
-//     if (courseCheck.length) {
-//       await connection.dropCollection('courses');
-//     }
+    await User.create(usersData);
 
-//     let studentsCheck = await connection.db.listCollections({ name: 'students' }).toArray();
-//     if (studentsCheck.length) {
-//       await connection.dropCollection('students');
-//     }
-//   // Create empty array to hold the students
-//   const students = [];
+    // Seed Thoughts
+    const thoughtsData = [
+      { thoughtText: 'All Star Weekend was a blast!', username: 'LeBron_James', reactions: [] },
+      { thoughtText: 'So much fun in the 3 point shootout!', username: 'Stephen_Curry', reactions: [] },
+      { thoughtText: 'Boo.....', username: 'Kevin_Durant', reactions: [] },
+      { thoughtText: 'The Bucks will be back on top. Mark my words.', username: 'Giannis_Antetokounmpo', reactions: [] },
+      { thoughtText: 'I am a really fun guy.', username: 'Kawhi_Leonard', reactions: [] },
+      { thoughtText: 'Last week I sneezed and a triple-double came out of my nose.', username: 'Luka_Doncic', reactions: [] },
+      { thoughtText: 'There are some hungry Wolves out there...', username: 'Karl_Anthony_Towns', reactions: [] },
+      { thoughtText: 'Ant-Man is taking over! Watch yourselves', username: 'Anthony_Edwards', reactions: [] },
+      { thoughtText: 'Healing quickly, thanks for the well wishes.', username: 'Joel_Embiid', reactions: [] },
+      { thoughtText: 'WHAT TIME IS IT? DAME TIME!', username: 'Damian_Lillard', reactions: [] },
+    ];
+    console.log(thoughtsData);
+    await Thought.create(thoughtsData);
 
-//   // Loop 20 times -- add students to the students array
-//   for (let i = 0; i < 20; i++) {
-//     // Get some random assignment objects using a helper function that we imported from ./data
-//     const assignments = getRandomAssignments(20);
+    console.log('Seed data inserted successfully');
+  } catch (err) {
+    console.error('Error seeding data:', err);
+  } finally {
+    // Disconnect from the database after all operations are completed
+    await mongoose.disconnect();
+  }
+};
 
-//     const fullName = getRandomName();
-//     const first = fullName.split(' ')[0];
-//     const last = fullName.split(' ')[1];
-//     const github = `${first}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}`;
-
-//     students.push({
-//       first,
-//       last,
-//       github,
-//       assignments,
-//     });
-//   }
-
-//   // Add students to the collection and await the results
-//   await Student.collection.insertMany(students);
-
-//   // Add courses to the collection and await the results
-//   await Course.collection.insertOne({
-//     courseName: 'UCLA',
-//     inPerson: false,
-//     students: [...students],
-//   });
-
-//   // Log out the seed data to indicate what should appear in the database
-//   console.table(students);
-//   console.info('Seeding complete! 🌱');
-//   process.exit(0);
-// });
+seedUsersAndThoughts();
