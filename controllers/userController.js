@@ -18,8 +18,6 @@ const userController = {
       const user = await User.findById(userId)
         .populate('thoughts')
         .populate('friends');
-
-        //do these need to be pluralized?  Check once seeded to see if working
       
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
@@ -114,4 +112,3 @@ const userController = {
 };
 
 module.exports = userController;
-///do I need to export out the individual functions???? 

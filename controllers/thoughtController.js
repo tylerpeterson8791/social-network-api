@@ -28,7 +28,7 @@ const thoughtController = {
       try {
         const thought = await Thought.create(req.body);
        await User.findByIdAndUpdate(req.body.username, { $push: { thoughts: thought._id } });
-  // DONT KNOW IF THIS IS CORRECT????  Spread array??? I get an error but the DB updates
+  
         res.json(thought);
       } catch (err) {
         res.status(400).json({ error: 'Invalid request' });
@@ -60,7 +60,7 @@ const thoughtController = {
           return res.status(404).json({ error: 'Thought not found' });
         }
        await User.findByIdAndUpdate(thought.username, { $pull: { thoughts: thought._id } });
-  // DONT KNOW IF THIS IS CORRECT????  Spread array???
+ 
         res.json(thought);
       } catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
@@ -106,4 +106,3 @@ const thoughtController = {
   };
   
   module.exports = thoughtController;
-///do I need to export out the individual functions????
