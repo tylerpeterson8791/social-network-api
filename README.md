@@ -20,12 +20,15 @@
   
   This project was a VERY valuable practice in how to set everything up using Mongoose and I feel much more confident in my abilities doing so moving forward.
 
- HERE IS A VIDEO OF ME TESTING THE ROUTES IN POSTMAN:  
+ HERE IS A VIDEO OF ME TESTING THE ROUTES IN POSTMAN (sorry for the length, a lot of copy and pasting of ids, wanted to show all functionality working):
+
+ [Functionality Video](https://drive.google.com/file/d/1aYvis2bUMjdcuc85VrnOAaCiE1Y70DaC/view?usp=sharing)
 
   ## Usage
   
   Since there is no front end on this there really isn't any User process yet.  Below are a couple of screenshots of the return data based on routing:
-
+  
+![Posting Reaction on Thought](https://github.com/tylerpeterson8791/social-network-api/assets/75902133/dac0c4a3-7246-4cc0-8c6b-382d3d53d642)
 
 
 
@@ -36,6 +39,6 @@
 
   I only used class notes and lessons for reference on this one so I have no outside sources to credit besides the mongoose documentation they put out themselves (especially the queries section:
 
-  https://mongoosejs.com/docs/queries.html
+  [MongooseJS](https://mongoosejs.com/docs/queries.html)
   
   Finally a big thanks for my instructor Gary for explaining things so well in class!  Also a big thanks to our TA's Katy and Jessica for helping us throught the mini project; that ended up being a great resource for this challenge.
